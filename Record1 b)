@@ -158,3 +158,4 @@ b) DDL-ALTER & DROP
     mysql> desc student1;
     ERROR 1146 (42S02): Table 'you.student1' doesn't exist
 
+//
