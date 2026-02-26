@@ -1,0 +1,202 @@
+2. DML COMMANDS 
+
+ a) DML -INSERT 
+ 
+ 
+ mysql> insert into customer(id,name,address,city,ph_no)values(1,'Meera','Rose_villa
+Query OK, 1 row affected (0.12 sec)
+mysql> insert into customer(id,name,address,city,ph_no)values(2,'Anu','Green house','kochi',927364670);
+Query OK, 1 row affected (0.11 sec)
+mysql> insert into customer(id,name,address,city,ph_no)values(3,'Sita','Blue nest','TVM',836483736);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into customer(id,name,address,city,ph_no)values(4,'Rony','Lake view','Calicut',6253468290);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into customer(id,name,address,city,ph_no)values(5,'Raj','Hill top','Thrissur',8756453682);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from customer;
++----+-------+-------------+----------+------------+
+| id | name  | address     | city     | ph_no      |
++----+-------+-------------+----------+------------+
+|  1 | Meera | Rose_villa  | TVM      | 54672894   |
+|  2 | Anu   | Green house | kochi    | 927364670  |
+|  3 | Sita  | Blue nest   | TVM      | 836483736  |
+|  4 | Rony  | Lake view   | Calicut  | 6253468290 |
+|  5 | Raj   | Hill top    | Thrissur | 8756453682 |
++----+-------+-------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer(id,name,address,city,ph_no)values(6,'Tom','Blue heaven','kochi',6748903720),(7,'Tomy','Red villa','calicut',9356789010);
+Query OK, 2 rows affected (0.09 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> update customer set ph_no=null where id=3;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set ph_no=null where id=5;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+-------+-------------+----------+------------+
+| id | name  | address     | city     | ph_no      |
++----+-------+-------------+----------+------------+
+|  1 | Meera | Rose_villa  | TVM      | 54672894   |
+|  2 | Anu   | Green house | kochi    | 927364670  |
+|  3 | Sita  | Blue nest   | TVM      | NULL       |
+|  4 | Rony  | Lake view   | Calicut  | 6253468290 |
+|  5 | Raj   | Hill top    | Thrissur | NULL       |
+|  6 | Tom   | Blue heaven | kochi    | 6748903720 |
+|  7 | Tomy  | Red villa   | calicut  | 9356789010 |
++----+-------+-------------+----------+------------+
+7 rows in set (0.00 sec)
+
+
+PRODUCT----------------------------------------------
+
+mysql> desc product;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| pid   | int           | NO   | PRI | NULL    |       |
+| pname | varchar(50)   | YES  |     | NULL    |       |
+| price | decimal(10,2) | YES  |     | 0.00    |       |
++-------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product(pid,pname,price)values(101,'Book',30),(102,'pencil',1
+5);
+Query OK, 2 rows affected (0.12 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into product(pid,pname,price)values(103,'Eraser',20),(104,'Scale',40);
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into product(pid,pname,price)values(105,'Laptop',55000),(106,'Mouse',500);
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into product(pid,pname,price)values(107,'Table',1500);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from product;
++-----+--------+----------+
+| pid | pname  | price    |
++-----+--------+----------+
+| 101 | Book   |    30.00 |
+| 102 | pencil |    15.00 |
+| 103 | Eraser |    20.00 |
+| 104 | Scale  |    40.00 |
+| 105 | Laptop | 55000.00 |
+| 106 | Mouse  |   500.00 |
+| 107 | Table  |  1500.00 |
++-----+--------+----------+
+7 rows in set (0.00 sec)
+
+
+
+INVOICE----------------------
+INSERTION
+
+mysql> insert into invoice_master(inv_id,cust_id,inv_date) values(1001,1,'2025-01-20');
+Query OK, 1 row affected (0.10 sec)
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2025-01-20 |
++--------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into invoice_master(inv_id,cust_id,inv_date) values(1002,2,'2025-03-16'),(1003,2,'2025-04-06'),(1004,3,'2025-05-21'),(1005,4,'2025-05-28'),(1006,4,'2025-06-18'),(1007,5,'2025-07-06');
+Query OK, 6 rows affected (0.10 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> insert into invoice_master(inv_id,cust_id,inv_date) values(1008,6,'2025-07-24'),(1009,6,'2025-08-22'),(1010,7,'2025-11-16');
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1001 |       1 | 2025-01-20 |
+|   1002 |       2 | 2025-03-16 |
+|   1003 |       2 | 2025-04-06 |
+|   1004 |       3 | 2025-05-21 |
+|   1005 |       4 | 2025-05-28 |
+|   1006 |       4 | 2025-06-18 |
+|   1007 |       5 | 2025-07-06 |
+|   1008 |       6 | 2025-07-24 |
+|   1009 |       6 | 2025-08-22 |
+|   1010 |       7 | 2025-11-16 |
++--------+---------+------------+
+10 rows in set (0.00 sec)
+
+
+
+mysql> insert into invoice_item(inv_id,pid,quantity) values(1001,102,3);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into invoice_item(inv_id,pid,quantity) values(1002,104,1),(1002,105,4),(1006,107,2),(1007,107,1),(1003,104,1),(1004,105,4),(1005,107,2),(1007,107,1),(1008,105,1),(1009,106,1),(1010,103,6);
+Query OK, 7 rows affected (0.13 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1001 |  102 |        3 |
+|   1002 |  104 |        1 |
+|   1002 |  105 |        4 |
+|   1006 |  107 |        2 |
+|   1007 |  107 |        1 |
+|   1003 |  104 |        1 |
+|   1004 |  105 |        4 |
+|   1005 |  107 |        2 |
+|   1007 |  107 |        1 |
+|   1008 |  105 |        1 |
+|   1009 |  106 |        1 |
+|   1010 |  103 |        6 |
++--------+------+----------+
+12 rows in set (0.00 sec)
+
+mysql> 
+
+Query OK, 4 rows affected (0.10 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
