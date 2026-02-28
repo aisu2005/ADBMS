@@ -1,0 +1,53 @@
+1. Find the minimum, maximum, and average price of products.
+
+mysql> select * from product;
++-----+--------+----------+
+| pid | pname  | price    |
++-----+--------+----------+
+| 101 | Book   |    51.00 |
+| 102 | pencil |    15.30 |
+| 103 | Eraser |    20.40 |
+| 104 | Scale  |    40.80 |
+| 105 | Laptop | 56100.00 |
+| 106 | Mouse  |   510.00 |
+| 107 | Table  |  1530.00 |
++-----+--------+----------+
+7 rows in set (0.02 sec)
+
+mysql> select min(price),max(price),avg(price) from product;
++------------+------------+-------------+
+| min(price) | max(price) | avg(price)  |
++------------+------------+-------------+
+|      15.30 |   56100.00 | 8323.928571 |
++------------+------------+-------------+
+1 row in set (0.00 sec)
+
+
+2. Find the number of customers in each city, and only include cities with more than 2 customers.
+
+mysql> select * from customer;
++----+------+-------------+-----------+------------+
+| id | name | address     | city      | ph_no      |
++----+------+-------------+-----------+------------+
+|  2 | Anu  | Green house | kochi     | 927364670  |
+|  3 | Sita | Blue nest   | TVM       | NULL       |
+|  4 | Rony | Lake view   | kozhikode | 6253468290 |
+|  5 | Raj  | Hill top    | Thrissur  | NULL       |
+|  6 | Tom  | Blue heaven | kochi     | 6748903720 |
+|  7 | Tomy | Red villa   | calicut   | 9356789010 |
++----+------+-------------+-----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select city,count(*) as customers from customer group by city HAVING count(*) >1;
++-------+-----------+
+| city  | customers |
++-------+-----------+
+| kochi |         2 |
++-------+-----------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
