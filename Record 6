@@ -1,0 +1,105 @@
+
+
+1. List the product names, only include those purchased quantity more than 3.
+
+mysql> select pname from product where pid in (select pid from invoice_item where quantity>3 );
++-------+
+| pname |
++-------+
+| Scale |
+| Table |
++-------+
+2 rows in set (0.00 sec)
+
+2. Find the product that has no sale.
+
+mysql> select pname from product where pid NOT IN (select pid from invoice_item);
++--------+
+| pname  |
++--------+
+| Book   |
+| pencil |
+| Eraser |
++--------+
+3 rows in set (0.03 sec)
+
+
+3. List the names of all customers who have purchased at least 2 products, making sure that
+no duplicate names are in the result.
+
+mysql> select name from customer where id in (select cust_id from invoice_master
+ where inv_id in (select inv_id from invoice_item group by inv_id having count(pid)>=2));
++------+
+| name |
++------+
+| Raj  |
++------+
+1 row in set (0.00 sec)
+
+------------------------------------------
+
+mysql> select * from product;
++-----+--------+----------+
+| pid | pname  | price    |
++-----+--------+----------+
+| 101 | Book   |    51.00 |
+| 102 | pencil |    15.30 |
+| 103 | Eraser |    20.40 |
+| 104 | Scale  |    40.80 |
+| 105 | Laptop | 56100.00 |
+| 106 | Mouse  |   510.00 |
+| 107 | Table  |  1530.00 |
++-----+--------+----------+
+7 rows in set (0.02 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1007 |  107 |        3 |
+|   1003 |  104 |        6 |
+|   1005 |  107 |        2 |
+|   1007 |  107 |        5 |
+|   1008 |  105 |        1 |
+|   1009 |  106 |        3 |
++--------+------+----------+
+6 rows in set (0.02 sec)
+
+mysql> select * from customer;
++----+------+-------------+-----------+------------+
+| id | name | address     | city      | ph_no      |
++----+------+-------------+-----------+------------+
+|  2 | Anu  | Green house | kochi     | 927364670  |
+|  3 | Sita | Blue nest   | TVM       | NULL       |
+|  4 | Rony | Lake view   | kozhikode | 6253468290 |
+|  5 | Raj  | Hill top    | Thrissur  | NULL       |
+|  6 | Tom  | Blue heaven | kochi     | 6748903720 |
+|  7 | Tomy | Red villa   | calicut   | 9356789010 |
++----+------+-------------+-----------+------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1002 |       2 | 2025-03-16 |
+|   1003 |       2 | 2025-04-06 |
+|   1005 |       4 | 2025-05-28 |
+|   1006 |       4 | 2025-06-18 |
+|   1007 |       5 | 2025-07-06 |
+|   1008 |       6 | 2025-07-24 |
+|   1009 |       6 | 2025-08-22 |
++--------+---------+------------+
+7 rows in set (0.02 sec)
+
+
+
+
+
+
+
+
+
+
+
+
