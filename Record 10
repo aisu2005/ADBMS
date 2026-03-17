@@ -1,0 +1,79 @@
+1. Create a procedure to find greatest of 3 numbers. 
+
+mysql> delimiter $$
+mysql> create procedure greats(in x int,in y int,in z int)
+    -> begin
+    -> declare a int;
+    -> declare c int;
+    -> declare b int;
+    -> set a=x;
+    -> set b=y;
+    -> set c=z;
+    -> if(a>b AND a<c) then
+    -> select a as 'greater';
+    -> elseif(b>c and b>a) then
+    -> select b as 'greater';
+    -> else select c as 'greater';
+    -> end if;
+    -> end$$
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> call greats(6,8,2)$$
++---------+
+| greater |
++---------+
+|       8 |
++---------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+2. Create a procedure to display invoice details of a particular customer.
+
+mysql> DELIMITER $$
+
+mysql> CREATE PROCEDURE deta(IN c_id INT) BEGIN SELECT customer.id,customer.name,invoice_master.inv_id,invoice_master.inv_date,invoice_item.pid,invoice_item.quantity FROM customer JOIN invoice_master ON customer.id=invoice_master.cust_id
+ JOIN invoice_item ON invoice_master.inv_id=invoice_item.inv_id WHERE customer.id=c_id; END$$
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> call deta(6)$$
++----+------+--------+------------+------+----------+
+| id | name | inv_id | inv_date   | pid  | quantity |
++----+------+--------+------------+------+----------+
+|  6 | Tom  |   1008 | 2025-07-24 |  105 |        1 |
+|  6 | Tom  |   1009 | 2025-08-22 |  106 |        3 |
++----+------+--------+------------+------+----------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
