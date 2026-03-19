@@ -1,0 +1,145 @@
+1. Write a MongoDB query to sort customer details in ascending order of their name. 
+
+test> use INVOICE
+switched to db INVOICE
+INVOICE> db.customer.find().sort({name:1});
+[
+  {
+    _id: ObjectId('69b8fc51962d82e37132a03f'),
+    name: 'anjali',
+    city: 'kozhikode',
+    ph_no: 5262836442
+  },
+  {
+    _id: ObjectId('69b8fca2962d82e37132a040'),
+    name: 'arya',
+    city: 'wayanad',
+    ph_no: 124353674
+  },
+  {
+    _id: ObjectId('69b8fbef962d82e37132a03d'),
+    name: 'nandana',
+    city: 'palakkad',
+    ph_no: 63739229
+  },
+  {
+    _id: ObjectId('69b8fbef962d82e37132a03e'),
+    name: 'sreya',
+    city: 'calicut',
+    pn_no: 54734829
+  }
+]
+
+
+
+ 2. Write a MongoDB query to count number of customers in each city. 
+ 
+ INVOICE> db.customer.aggregate([{$group:{_id:"$city",total:{$sum:1}}}]);
+[
+  { _id: 'kozhikode', total: 1 },
+  { _id: 'palakkad', total: 1 },
+  { _id: 'calicut', total: 1 },
+  { _id: 'wayanad', total: 1 }
+]
+
+ 
+ 3. Write a MongoDB query to find minimum and maximum price in each product. 
+ 
+ INVOICE> db.product.aggregate([{$group:{_id:"$pname",max_price:{$max:"$price"},min_price:{$min:"$price"}}}]);
+ 
+[
+  { _id: 'pen', max_price: 20, min_price: 20 },
+  { _id: 'scale', max_price: 5, min_price: 5 },
+  { _id: 'shoe', max_price: 500, min_price: 500 }
+]
+
+ 
+ 4. Write a MongoDB query using the $match stage to retrieve all customer documents whose
+customer_name starts with the letter “S”.
+
+INVOICE> db.customer.aggregate([{$match:{name:{$regex:"s"}}}]);
+[
+  {
+    _id: ObjectId('69b8fbef962d82e37132a03e'),
+    name: 'sreya',
+    city: 'calicut',
+    pn_no: 54734829
+  }
+]
+
+
+5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only
+customer name, product name, and price.
+
+
+INVOICE> db.customer.aggregate([{$lookup:{from:"product",localField:"product_id",foreignField:"product_id",as:"product_info"}},{$unwind:"$product_info"},{$project:{_id:0,name:"$name",pname:"$product_info.pname",price:"$product_info.price"}}]);
+[
+  { name: 'nandana', pname: 'pen', price: 20 },
+  { name: 'nandana', pname: 'scale', price: 5 },
+  { name: 'nandana', pname: 'scale', price: 5 },
+  { name: 'nandana', pname: 'shoe', price: 500 },
+  { name: 'sreya', pname: 'pen', price: 20 },
+  { name: 'sreya', pname: 'scale', price: 5 },
+  { name: 'sreya', pname: 'scale', price: 5 },
+  { name: 'sreya', pname: 'shoe', price: 500 },
+  { name: 'anjali', pname: 'pen', price: 20 },
+  { name: 'anjali', pname: 'scale', price: 5 },
+  { name: 'anjali', pname: 'scale', price: 5 },
+  { name: 'anjali', pname: 'shoe', price: 500 },
+  { name: 'arya', pname: 'pen', price: 20 },
+  { name: 'arya', pname: 'scale', price: 5 },
+  { name: 'arya', pname: 'scale', price: 5 },
+  { name: 'arya', pname: 'shoe', price: 500 }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
