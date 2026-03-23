@@ -1,0 +1,117 @@
+
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+INVOICE> db.createUser({user:"CUSTOMER1",pwd:"1234",roles:[{role:"read",db:"INVOICE"}]});
+{ ok: 1 }
+
+INVOICE> db.getUsers()
+{
+  users: [
+    {
+      _id: 'INVOICE.CUSTOMER1',
+      userId: UUID('746382eb-2b93-4903-83f7-5a448365df68'),
+      user: 'CUSTOMER1',
+      db: 'INVOICE',
+      roles: [ { role: 'read', db: 'INVOICE' } ],
+      mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+    }
+  ],
+  ok: 1
+}
+
+
+ 2. Write a MongoDB query to create the backup for the INVOICE database. 
+ 
+ ksb@ksb-OptiPlex-3060:~$ mongodump --db INVOICE
+2026-03-23T11:36:32.655+0530	writing INVOICE.customer to dump/INVOICE/customer.bson
+2026-03-23T11:36:32.655+0530	writing INVOICE.product to dump/INVOICE/product.bson
+2026-03-23T11:36:32.696+0530	done dumping INVOICE.customer (4 documents)
+2026-03-23T11:36:32.696+0530	done dumping INVOICE.product (4 documents)
+
+ 
+ 3. Write a MongoDB query to restore a particular database or a collection. 
+ 
+ ksb@ksb-OptiPlex-3060:~$ mongodump --db ksb
+2026-03-23T11:44:56.377+0530	writing ksb.mycollection to dump/ksb/mycollection.bson
+2026-03-23T11:44:56.413+0530	done dumping ksb.mycollection (1 document)
+
+INVOICE> use ksb
+switched to db ksb
+ksb> db.dropDatabase()
+{ ok: 1, dropped: 'ksb' }
+
+ 
+ ksb@ksb-OptiPlex-3060:~$ mongorestore --drop dump/
+2026-03-23T11:46:33.416+0530	preparing collections to restore from
+2026-03-23T11:46:33.416+0530	don't know what to do with file "dump/INVOICE/prelude.json", skipping...
+2026-03-23T11:46:33.417+0530	don't know what to do with file "dump/ksb/prelude.json", skipping...
+2026-03-23T11:46:33.417+0530	reading metadata for INVOICE.customer from dump/INVOICE/customer.metadata.json
+2026-03-23T11:46:33.417+0530	reading metadata for INVOICE.product from dump/INVOICE/product.metadata.json
+2026-03-23T11:46:33.417+0530	reading metadata for ksb.mycollection from dump/ksb/mycollection.metadata.json
+2026-03-23T11:46:33.417+0530	dropping collection INVOICE.customer before restoring
+2026-03-23T11:46:33.417+0530	dropping collection INVOICE.product before restoring
+2026-03-23T11:46:33.976+0530	restoring ksb.mycollection from dump/ksb/mycollection.bson
+2026-03-23T11:46:34.026+0530	finished restoring ksb.mycollection (1 document, 0 failures)
+2026-03-23T11:46:34.113+0530	restoring INVOICE.customer from dump/INVOICE/customer.bson
+2026-03-23T11:46:34.159+0530	finished restoring INVOICE.customer (4 documents, 0 failures)
+2026-03-23T11:46:34.210+0530	restoring INVOICE.product from dump/INVOICE/product.bson
+2026-03-23T11:46:34.228+0530	finished restoring INVOICE.product (4 documents, 0 failures)
+2026-03-23T11:46:34.228+0530	restoring indexes for collection INVOICE.customer from metadata
+2026-03-23T11:46:34.228+0530	index: &idx.IndexDocument{Options:primitive.M{"name":"customer_name_1", "v":2}, Key:primitive.D{primitive.E{Key:"customer_name", Value:1}}, PartialFilterExpression:primitive.D(nil)}
+2026-03-23T11:46:34.228+0530	no indexes to restore for collection INVOICE.product
+2026-03-23T11:46:34.228+0530	no indexes to restore for collection ksb.mycollection
+2026-03-23T11:46:34.497+0530	9 document(s) restored successfully. 0 document(s) failed to restore.
+
+ 
+ 
+ 4. Write a MongoDB query to create an index for the collection customer using the field customer_name.
+ 
+ INVOICE> db.customer.createIndex({customer_name:1})
+customer_name_1
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
